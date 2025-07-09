@@ -1,0 +1,16 @@
+ version: 0.2
+ phases:
+ pre_build:
+ commands:
+- echo Logging in to Amazon ECR...- aws ecr get-login-password --region <region> | docker login --username 
+AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+ build:
+ commands:- echo Build started on `date`- docker build -t product-service ./product-service- docker tag product-service:latest <account
+id>.dkr.ecr.<region>.amazonaws.com/product-service:latest
+ post_build:
+ commands:- docker push <account-id>.dkr.ecr.<region>.amazonaws.com/product
+service:latest- printf '[{"name":"product-service","imageUri":"%s"}]' <account
+id>.dkr.ecr.<region>.amazonaws.com/product-service:latest > 
+imagedefinitions.json
+ artifacts:
+ files:- imagedefinitions.json
