@@ -5,12 +5,14 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 495599735553.dkr.ecr.ca-central-1.amazonaws.com
+
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t user-service .
+      - docker build -t user-service ./user-service      # ← This is the fix
       - docker tag user-service:latest 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
+
   post_build:
     commands:
       - echo Build completed on `date`
