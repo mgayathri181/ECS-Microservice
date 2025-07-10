@@ -1,14 +1,22 @@
- version: 0.2
- phases:
- pre_build:
- commands:- echo Logging in to Amazon ECR...- aws ecr get-login-password --region <region> | docker login --username 
-AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
- build:
- commands:- echo Build started on `date`- docker build -t user-service ./user-service- docker tag user-service:latest <account
-id>.dkr.ecr.<region>.amazonaws.com/user-service:latest
- post_build:
- commands:- docker push <account-id>.dkr.ecr.<region>.amazonaws.com/user
-service:latest- printf '[{"name":"user-service","imageUri":"%s"}]' <account
-id>.dkr.ecr.<region>.amazonaws.com/user-service:latest > imagedefinitions.json
- artifacts:
- files:- imagedefinitions.json
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ca-central-1 | docker login --username AWS --password-stdin 495599735553.dkr.ecr.ca-central-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t user-service .
+      - docker tag user-service:latest 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
+
+artifacts:
+  files:
+    - '**/*'
