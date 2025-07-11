@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 // Home route
 app.get('/', (req, res) => {
@@ -55,6 +55,6 @@ app.get('/product', (req, res) => {
   `);
 });
 
-app.listen(3001, () => {
-  console.log("Product Service running on port 3001");
+app.listen(PORT, () => {
+  console.log("Product Service running on port", PORT);
 });
