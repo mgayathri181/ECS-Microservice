@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-// Simple homepage with nice styling
+// Home route
 app.get('/', (req, res) => {
   res.send(`
     <html>
@@ -11,19 +11,17 @@ app.get('/', (req, res) => {
         <style>
           body { font-family: Arial; text-align: center; margin-top: 50px; background-color: #f5f5f5; }
           h1 { color: #007acc; }
-          p { font-size: 18px; }
         </style>
       </head>
       <body>
         <h1>Welcome to the User Microservice</h1>
-        <p>This service provides user-related APIs.</p>
-        <p>Try <a href="/user">/user</a> to get user info</p>
+        <p>Go to <a href="/user">/user</a> to view user information</p>
       </body>
     </html>
   `);
 });
 
-// Pretty user page
+// User route
 app.get('/user', (req, res) => {
   const user = { id: 1, name: 'John Doe', role: 'Admin' };
   res.send(`
@@ -31,7 +29,7 @@ app.get('/user', (req, res) => {
       <head>
         <title>User Info</title>
         <style>
-          body { font-family: Arial; background-color: #fefefe; padding: 30px; }
+          body { font-family: Arial; background: #fefefe; padding: 30px; }
           .card {
             max-width: 400px;
             margin: auto;
@@ -57,6 +55,6 @@ app.get('/user', (req, res) => {
   `);
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`User Service running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log("User Service running on port", PORT);
 });
