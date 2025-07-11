@@ -4,7 +4,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:ca-central-1:495599735553:task-definition/user-task-def:4"
+        TaskDefinition: "arn:aws:ecs:ca-central-1:495599735553:task-definition/user-task-def:5"
         LoadBalancerInfo:
           ContainerName: "user-service-container"
           ContainerPort: 3000
