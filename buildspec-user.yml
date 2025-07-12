@@ -18,8 +18,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
-      - cp appspec-user.yml .   # Copy appspec.yaml from repo root to current directory (build root)
 
 artifacts:
   files:
-    - appspec-user.yml
+    - appspec-user.yaml
+    - '**/*'
