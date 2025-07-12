@@ -17,8 +17,10 @@ phases:
     commands:
       - echo Pushing the Docker image...
       - docker push 495599735553.dkr.ecr.ca-central-1.amazonaws.com/product-service:latest
-      - printf '[{"name":"product-service","imageUri":"%s"}]' 495599735553.dkr.ecr.ca-central-1.amazonaws.com/product-service:latest > imagedefinitions.json
+      - echo Writing imagedefinitions.json...
+      - printf '[{"name":"product-service-container","imageUri":"495599735553.dkr.ecr.ca-central-1.amazonaws.com/product-service:latest"}]' > imagedefinitions.json
 
 artifacts:
   files:
     - imagedefinitions.json
+    - appspec.yaml
