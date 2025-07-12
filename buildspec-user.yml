@@ -10,7 +10,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t user-service ./user-service      # ← This is the fix
+      - docker build -t user-service ./user-service
       - docker tag user-service:latest 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
 
   post_build:
@@ -18,7 +18,8 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
+      - cp appspec.yaml .   # Copy appspec.yaml from repo root to current directory (build root)
 
 artifacts:
   files:
-    - '**/*'
+    - appspec-user.yml
