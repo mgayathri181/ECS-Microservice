@@ -18,8 +18,10 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest
+      - echo Writing imagedefinitions.json file...
+      - printf '[{"name":"user-service-container","imageUri":"495599735553.dkr.ecr.ca-central-1.amazonaws.com/user-service:latest"}]' > imagedefinitions.json
 
 artifacts:
   files:
-    - appspec-user.yaml
-    - '**/*'
+    - appspec.yaml
+    - imagedefinitions.json
